@@ -17,6 +17,7 @@
       <tr>
         <th class="id">ID</th>
         <th class="todo">TODO</th>
+        <th class="deadline">期日</th>
         <th class="state">状態</th>
         <th class="button">-</th>
       </tr>
@@ -30,6 +31,7 @@
           </div>
           <input type="text" class="edit" @blur="doneEdit($event, todo)" @keydown.enter="doneEdit($event, todo)" @keyup.esc="cancelEdit(todo)" v-model="todo.content" v-todo-focus="todo == editedTodo">
         </td>
+        <td class="deadline">{{ todo.deadline }}</td>
         <td class="state">
           <button v-on:click="doChangeState(todo)">{{ labels[todo.state] }}</button>
         </td>
@@ -42,7 +44,8 @@
   
   <h2>新規Todo</h2>
   <form class="add-form" v-on:submit.prevent="addTodo">
-    <input type="text" v-model="newTodo">
+    <input type="text" v-model="newTodo" class="form-content" placeholder="タスクを入力">
+    <input type="date" v-model="deadline" class="form-deadline" v-bind:min="today()">
     <button type="submit" v-bind:disabled="isButtonDisabled()">追加</button>
   </form>
 </div>

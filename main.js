@@ -26,7 +26,8 @@ const app = new Vue({
     ],
     current: -1,
     newTodo: '',
-    editedTodo: ''
+    editedTodo: '',
+    deadline: ''
   },
   methods: {
     addTodo: function () {
@@ -37,6 +38,7 @@ const app = new Vue({
       this.todos.push({
         id: todoStorage.uid++,
         content: this.newTodo,
+        deadline: this.deadline,
         state: 0
       });
       this.newTodo = ""
@@ -68,6 +70,16 @@ const app = new Vue({
     cancelEdit: function (todo) {
       this.editedTodo = null;
       todo.content = this.beforeEditCache
+    },
+    formatDate: function (date) {
+      const year = date.getFullYear();
+      const month = ('00' + (date.getMonth() + 1)).slice(-2);
+      const day = ('00' + date.getDate()).slice(-2);
+      return `${year}-${month}-${day}`
+    },
+    today: function () {
+      const today = new Date();
+      return this.formatDate(today);
     }
   },
   watch: {
@@ -79,6 +91,7 @@ const app = new Vue({
     }
   },
   created: function () {
+    this.deadline = this.today();
     this.todos = todoStorage.fetch()
   },
   computed: {
