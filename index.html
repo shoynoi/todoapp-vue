@@ -23,15 +23,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="todo in computedTodos" v-bind:key="todo.id" v-bind:class="{ done: todo.state, editing: todo === editedTodo }">
+      <tr v-for="todo in computedTodos" v-bind:key="todo.id" v-bind:class="{ done: todo.state }">
         <th>{{ todo.id }}</th>
-        <td class="td-content">
+        <td class="td-content" v-bind:class="{ editingContent: todo === editedContent }">
           <div class="view">
             <label @click="editTodo(todo)">{{ todo.content }}</label>
           </div>
-          <input type="text" class="edit" @blur="doneEdit($event, todo)" @keydown.enter="doneEdit($event, todo)" @keyup.esc="cancelEdit(todo)" v-model="todo.content" v-todo-focus="todo == editedTodo">
+          <input type="text" class="edit" @blur="doneEditContent($event, todo)" @keydown.enter="doneEditContent($event, todo)" @keyup.esc="cancelEditContent(todo)" v-model="todo.content" v-todo-focus="todo == editedContent">
         </td>
-        <td class="deadline">{{ todo.deadline }}</td>
+        <td class="deadline" v-bind:class="{ editingDeadline: todo === editedDeadline }">
+          <div class="view">
+            <label @click="editDeadline(todo)">{{ todo.deadline | formatDeadline }}</label>
+          </div>
+          <input type="date" class="edit" @blur="doneEditDeadline($event, todo)" @keydown.enter="doneEditDeadline($event, todo)" @keyup.esc="cancelEditDeadline(todo)" v-model="todo.deadline" v-bind:min="today()" v-todo-focus="todo == editedDeadline">
+        </td>
         <td class="state">
           <button v-on:click="doChangeState(todo)">{{ labels[todo.state] }}</button>
         </td>

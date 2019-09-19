@@ -26,8 +26,9 @@ const app = new Vue({
     ],
     current: -1,
     newTodo: '',
-    editedTodo: '',
-    deadline: ''
+    editedContent: '',
+    deadline: '',
+    editedDeadline: ''
   },
   methods: {
     addTodo: function () {
@@ -56,20 +57,34 @@ const app = new Vue({
     editTodo: function (todo) {
       if (todo.state === 1) return;
       this.beforeEditCache = todo.content;
-      this.editedTodo = todo
+      this.editedContent = todo
     },
-    doneEdit: function (event, todo) {
+    editDeadline: function(todo) {
+      if (todo.state === 1) return;
+      this.beforeEditCache = todo.deadline;
+      this.editedDeadline = todo;
+    },
+    doneEditContent: function (event, todo) {
       if (event.keyCode !== 13 && event.type !== 'blur') return;
-      if (!this.editedTodo) return;
-      this.editedTodo = null;
+      if (!this.editedContent) return;
+      this.editedContent = null;
       todo.content = todo.content.trim();
       if (!todo.content) {
-        this.doRemove(todo)
+        this.cancelEditContent(todo)
       }
     },
-    cancelEdit: function (todo) {
-      this.editedTodo = null;
+    doneEditDeadline: function(event, todo) {
+      if (event.keyCode !== 13 && event.type !== 'blur') return;
+      if (!this.editedDeadline) return;
+      this.editedDeadline = null;
+    },
+    cancelEditContent: function (todo) {
+      this.editedContent = null;
       todo.content = this.beforeEditCache
+    },
+    cancelEditDeadline: function (todo) {
+      this.editedDeadline = null;
+      todo.deadline = this.editedDeadline
     },
     formatDate: function (date) {
       const year = date.getFullYear();
@@ -104,6 +119,11 @@ const app = new Vue({
       return this.options.reduce(function (a, b) {
         return Object.assign(a, { [ b.value ]: b.label })
       }, {})
+    }
+  },
+  filters: {
+    formatDeadline: function (val) {
+      return val === '' ? 'なし' : val
     }
   },
   directives: {

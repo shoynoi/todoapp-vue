@@ -88,16 +88,16 @@ button {
     cursor: default;
 }
 
-tr.editing .view {
+.editingContent .view , .editingDeadline .view {
     display: none;
 }
 
-.view label, tr.editing .edit {
+.view label, .editingContent .edit, .editingDeadline .edit {
     padding: 2px 5px;
     letter-spacing: 0.05em;
 }
 
-tr.editing .edit {
+.editingContent .edit, .editingDeadline .edit{
     display: block;
     line-height: 1.5;
     font-size: 100%;
@@ -106,7 +106,7 @@ tr.editing .edit {
     width: 100%;
 }
 
-.td-content label:hover {
+.td-content label:hover, .deadline label:hover{
     outline: 1px solid #d0d3d6;
 }
 
@@ -118,6 +118,9 @@ tr td .edit {
     display: block;
 }
 
+.view label:empty {
+    display: block;
+}
 input[type="date"]::-webkit-inner-spin-button{
      -webkit-appearance: none;
  }
