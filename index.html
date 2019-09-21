@@ -8,10 +8,20 @@
 <body>
 <div id="app">
   <h1>Todoリスト</h1>
-  <label v-for="label in options">
-    <input type="radio" v-model="current" v-bind:value="label.value">{{ label.label }}
-  </label>
-  ({{ computedTodos.length }}件を表示中)
+  <div class="search">
+    <div class="condition">
+      <label v-for="label in options">
+        <input type="radio" v-model="current" v-bind:value="label.value">{{ label.label }}
+      </label>
+      ({{ computedTodos.length }}件を表示中)
+    </div>
+    <div class="sort">
+      <select id="sort" v-model.number="sortOrder" v-on:change="sortTodos">
+        <option value="0" selected>標準</option>
+        <option value="1">期限</option>
+      </select>
+    </div>
+  </div>
   <table>
     <thead>
       <tr>
@@ -55,6 +65,7 @@
   </form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 <script src="main.js"></script>
 </body>
 </html>

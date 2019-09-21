@@ -28,7 +28,8 @@ const app = new Vue({
     newTodo: '',
     editedContent: '',
     deadline: '',
-    editedDeadline: ''
+    editedDeadline: '',
+    sortOrder: 0
   },
   methods: {
     addTodo: function () {
@@ -86,15 +87,15 @@ const app = new Vue({
       this.editedDeadline = null;
       todo.deadline = this.editedDeadline
     },
-    formatDate: function (date) {
-      const year = date.getFullYear();
-      const month = ('00' + (date.getMonth() + 1)).slice(-2);
-      const day = ('00' + date.getDate()).slice(-2);
-      return `${year}-${month}-${day}`
-    },
     today: function () {
-      const today = new Date();
-      return this.formatDate(today);
+      return moment().format('YYYY-MM-DD');
+    },
+    sortTodos: function () {
+      if (this.sortOrder === 0) {
+        return this.todos.sort((a, b) => a.id - b.id)
+      } else if (this.sortOrder === 1) {
+        return this.todos.sort((a, b) => moment(a.deadline).diff(moment(b.deadline)))
+      }
     }
   },
   watch: {
@@ -106,14 +107,13 @@ const app = new Vue({
     }
   },
   created: function () {
-    this.deadline = this.today();
     this.todos = todoStorage.fetch()
   },
   computed: {
     computedTodos: function () {
       return this.todos.filter(function (el) {
         return this.current < 0 ? true : this.current === el.state
-      }, this)
+      }, this);
     },
     labels: function () {
       return this.options.reduce(function (a, b) {
@@ -123,7 +123,14 @@ const app = new Vue({
   },
   filters: {
     formatDeadline: function (val) {
-      return val === '' ? 'なし' : val
+      const date = moment(val);
+      if (val === '') {
+        return 'なし'
+      } else if (date.year() === moment().year()) {
+        return date.format('M月D日')
+      } else {
+        return date.format('YYYY年M月D日')
+      }
     }
   },
   directives: {
