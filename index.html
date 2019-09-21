@@ -17,8 +17,10 @@
     </div>
     <div class="sort">
       <select id="sort" v-model.number="sortOrder" v-on:change="sortTodos">
-        <option value="0" selected>標準</option>
-        <option value="1">期限</option>
+        <option value='0' disabled selected>並び替え</option>
+        <option v-for="option in sortOptions" v-bind:value="option.value" v-bind:key="option.id">
+          {{ option.label }}
+        </option>
       </select>
     </div>
   </div>

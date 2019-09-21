@@ -1,4 +1,4 @@
-const STORAGE_KEY = "todos-vuejs" ;
+const STORAGE_KEY = "todos-vuejs";
 const todoStorage = {
   fetch: function() {
    const todos = JSON.parse(
@@ -29,7 +29,11 @@ const app = new Vue({
     editedContent: '',
     deadline: '',
     editedDeadline: '',
-    sortOrder: 0
+    sortOrder: 0,
+    sortOptions: [
+      { id: 1, value: 1, label: "標準"},
+      { id: 2, value: 2, label: "期限"}
+    ]
   },
   methods: {
     addTodo: function () {
@@ -91,9 +95,9 @@ const app = new Vue({
       return moment().format('YYYY-MM-DD');
     },
     sortTodos: function () {
-      if (this.sortOrder === 0) {
+      if (this.sortOrder === 1) {
         return this.todos.sort((a, b) => a.id - b.id)
-      } else if (this.sortOrder === 1) {
+      } else if (this.sortOrder === 2) {
         return this.todos.sort((a, b) => moment(a.deadline).diff(moment(b.deadline)))
       }
     }

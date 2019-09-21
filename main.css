@@ -148,7 +148,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .sort {
-    width: 100px;
     position: relative;
 }
 
@@ -158,7 +157,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     appearance: none;
     font-size: 14px;
     background: #fff;
-    width: 100%;
     border-radius: 5px;
     border: 1px solid #ccc;
     padding: 0 40px 0 10px;
