@@ -4,10 +4,12 @@ const todoStorage = {
    const todos = JSON.parse(
       localStorage.getItem(STORAGE_KEY) || "[]"
     );
-    todos.forEach(function(todo, index) {
-      todo.id = index
-    });
-    todoStorage.uid = todos.length;
+    if (todos) {
+      todoStorage.uid = todos.reduce(function (a, b) {
+        return a.id > b.id ? a.id : b.id
+      }, 0)} else {
+      todoStorage.uid = 0
+    }
     return todos
   },
   save: function(todos) {
@@ -42,7 +44,7 @@ const app = new Vue({
         return;
       }
       this.todos.push({
-        id: todoStorage.uid++,
+        id: ++todoStorage.uid,
         content: this.newTodo,
         deadline: this.deadline,
         state: 0
