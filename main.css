@@ -49,7 +49,7 @@ tbody tr td.deadline {
     text-align: center;
     width: 10em;
 }
-button {
+tbody button {
     border: none;
     border-radius: 20px;
     line-height: 24px;
@@ -66,21 +66,36 @@ button {
     align-items: center;
 }
 
-.add-form input {
-    padding: .25em .5em;
-    height: 38px;
-    border-radius: 3px;
-    border: 1px solid #ccc;
-    font-size: 100%;
-}
-
 .form-content {
-    flex-basis: 50%;
+    border-radius: 3px 0 0 3px;
+    border: 1px solid #ccc;
+    flex: 1;
 }
 
 .form-deadline {
-    flex-basis: 30%;
-    margin: 0 1em;
+    border: 1px solid #ccc;
+    border-radius: 0 3px 3px 0;
+    border-left: 0;
+}
+
+.add-form input {
+    padding: .25em .5em;
+    height: 38px;
+    font-size: 100%;
+}
+
+.add-form button {
+    margin-left: 2em;
+    border: none;
+    border-radius: 8px;
+    line-height: 24px;
+    padding: 5px 15px;
+    background: #0099e4;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: .8em;
+    height: 36px;
 }
 
 .add-form button:disabled {
@@ -95,6 +110,10 @@ button {
 .view label, .editingContent .edit, .editingDeadline .edit {
     padding: 2px 5px;
     letter-spacing: 0.05em;
+}
+
+.deadline .view label {
+    font-size: .85em;
 }
 
 .editingContent .edit, .editingDeadline .edit{
