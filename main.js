@@ -72,7 +72,7 @@ const app = new Vue({
       this.editedDeadline = todo;
     },
     doneEditContent: function (event, todo) {
-      if (event.keyCode !== 13 && event.type !== 'blur') return;
+      if (event.key !== "Enter" && event.type !== 'blur') return;
       if (!this.editedContent) return;
       this.editedContent = null;
       todo.content = todo.content.trim();
@@ -80,8 +80,8 @@ const app = new Vue({
         this.cancelEditContent(todo)
       }
     },
-    doneEditDeadline: function(event, todo) {
-      if (event.keyCode !== 13 && event.type !== 'blur') return;
+    doneEditDeadline: function (event) {
+      if (event.key !== "Enter" && event.type !== 'blur') return;
       if (!this.editedDeadline) return;
       this.editedDeadline = null;
     },
