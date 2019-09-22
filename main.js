@@ -91,7 +91,7 @@ const app = new Vue({
     },
     cancelEditDeadline: function (todo) {
       this.editedDeadline = null;
-      todo.deadline = this.editedDeadline
+      todo.deadline = this.beforeEditCache
     },
     today: function () {
       return moment().format('YYYY-MM-DD');
