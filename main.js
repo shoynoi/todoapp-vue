@@ -1,6 +1,6 @@
 const STORAGE_KEY = "todos-vuejs";
 const todoStorage = {
-  fetch: function() {
+  fetch: function () {
    const todos = JSON.parse(
       localStorage.getItem(STORAGE_KEY) || "[]"
     );
@@ -12,7 +12,7 @@ const todoStorage = {
     }
     return todos
   },
-  save: function(todos) {
+  save: function (todos) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
   }
 };
@@ -66,7 +66,7 @@ const app = new Vue({
       this.beforeEditCache = todo.content;
       this.editedContent = todo
     },
-    editDeadline: function(todo) {
+    editDeadline: function (todo) {
       if (todo.state === 1) return;
       this.beforeEditCache = todo.deadline;
       this.editedDeadline = todo;

@@ -16,7 +16,7 @@
       ({{ computedTodos.length }}件を表示中)
     </div>
     <div class="sort">
-      <select id="sort" v-model.number="sortOrder" v-on:change="sortTodos">
+      <select id="sort" v-model.number="sortOrder" @change="sortTodos">
         <option value='0' disabled selected>並び替え</option>
         <option v-for="option in sortOptions" v-bind:value="option.value" v-bind:key="option.id">
           {{ option.label }}
@@ -47,13 +47,13 @@
           <div class="view">
             <label @click="editDeadline(todo)">{{ todo.deadline | formatDeadline }}</label>
           </div>
-          <input type="date" class="edit" @blur="doneEditDeadline($event, todo)" @keydown.enter="doneEditDeadline($event, todo)" @keyup.esc="cancelEditDeadline(todo)" v-model="todo.deadline" v-bind:min="today()" v-todo-focus="todo == editedDeadline">
+          <input type="date" class="edit" @blur="doneEditDeadline($event)" @keydown.enter="doneEditDeadline($event)" @keyup.esc="cancelEditDeadline(todo)" v-model="todo.deadline" v-bind:min="today()" v-todo-focus="todo == editedDeadline">
         </td>
         <td class="state">
-          <button v-on:click="doChangeState(todo)">{{ labels[todo.state] }}</button>
+          <button @click="doChangeState(todo)">{{ labels[todo.state] }}</button>
         </td>
         <td class="button">
-          <button v-on:click="doRemove(todo)">削除</button>
+          <button @click="doRemove(todo)">削除</button>
         </td>
       </tr>
     </tbody>
